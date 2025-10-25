@@ -22,10 +22,9 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.andalib.ui.components.AndalibButton
-import com.example.andalib.ui.components.AndalibPasswordField
-import com.example.andalib.ui.components.AndalibTextField
-import com.example.andalib.ui.components.ClickableAuthText
+import com.example.andalib.components.AndalibTextField
+import com.example.andalib.components.AndalibButton
+import com.example.andalib.components.ClickableAuthText
 import com.example.andalib.ui.theme.*
 
 @OptIn(ExperimentalMaterial3Api::class)
