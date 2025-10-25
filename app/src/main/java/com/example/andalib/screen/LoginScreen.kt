@@ -4,7 +4,7 @@ import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardActions // Pastikan import ini ada
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Lock
@@ -15,7 +15,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -28,7 +27,8 @@ import com.example.andalib.ui.theme.*
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LoginScreen(
-    onLoginClicked: (String, String) -> Unit = { _, _ -> }, // Terima email & pass
+    // Diubah untuk mengirim email dan password
+    onLoginClicked: (String, String) -> Unit = { _, _ -> },
     onSignUpClicked: () -> Unit = {},
     onBackClicked: () -> Unit = {}
 ) {
@@ -179,7 +179,8 @@ fun LoginScreen(
                 onValueChange = { password = it },
                 label = "Password",
                 keyboardActions = KeyboardActions(
-                    onDone = { onLoginClicked() }
+                    // Diubah untuk mengirim data saat menekan 'done'
+                    onDone = { onLoginClicked(email, password) }
                 )
             )
 
@@ -188,7 +189,8 @@ fun LoginScreen(
             // --- Tombol Login ---
             AndalibButton(
                 text = "Log in",
-                onClick = onLoginClicked
+                // Diubah untuk mengirim data saat tombol diklik
+                onClick = { onLoginClicked(email, password) }
             )
 
             Spacer(Modifier.weight(1f))
