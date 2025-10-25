@@ -1,4 +1,4 @@
-package com.example.andalib.ui.screen
+package com.example.andalib.screen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -17,9 +17,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.andalib.components.AndalibButton
-import com.example.andalib.ui.components.AndalibPasswordField
-import com.example.andalib.ui.components.AndalibTextField
-import com.example.andalib.ui.components.ClickableAuthText
+import com.example.andalib.components.AndalibPasswordField
+import com.example.andalib.components.AndalibTextField
+import com.example.andalib.components.ClickableAuthText
 import com.example.andalib.ui.theme.*
 
 @OptIn(ExperimentalMaterial3Api::class)
