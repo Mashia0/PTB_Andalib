@@ -2,7 +2,6 @@ package com.example.andalib.screen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -34,24 +33,13 @@ fun StartScreen(
             modifier = Modifier.fillMaxSize(),
             contentAlignment = Alignment.Center
         ) {
-            // Placeholder untuk logo - ganti dengan logo asli
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
-            ) {
-                // Icon buku dengan tulisan ANDALIB
-                // Karena tidak ada resource logo, kita buat placeholder
-                androidx.compose.material3.Text(
-                    text = "📖",
-                    style = MaterialTheme.typography.displayLarge
-                )
-                Spacer(modifier = Modifier.height(8.dp))
-                androidx.compose.material3.Text(
-                    text = "ANDALIB",
-                    style = MaterialTheme.typography.headlineMedium,
-                    color = com.example.andalib.ui.theme.AndalibDarkBlue
-                )
-            }
+            // --- DIUBAH: Menampilkan logo.png ---
+            Image(
+                painter = painterResource(id = R.drawable.logo),
+                contentDescription = "Logo Andalib",
+                modifier = Modifier.size(150.dp) // Sesuaikan ukuran logo
+            )
+            // --- AKHIR PERUBAHAN ---
         }
     }
 }
