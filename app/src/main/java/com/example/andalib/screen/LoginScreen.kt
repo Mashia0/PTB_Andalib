@@ -20,12 +20,25 @@ import com.example.andalib.components.AndalibButton
 import com.example.andalib.components.AndalibPasswordField
 import com.example.andalib.components.AndalibTextField
 import com.example.andalib.components.ClickableAuthText
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.example.andalib.ui.components.AndalibButton
+import com.example.andalib.ui.components.AndalibPasswordField
+import com.example.andalib.ui.components.AndalibTextField
+import com.example.andalib.ui.components.ClickableAuthText
 import com.example.andalib.ui.theme.*
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LoginScreen(
     onLoginClicked: () -> Unit = {},
+    // DIUBAH: Menerima (String, String)
+    onLoginClicked: (String, String) -> Unit = { _, _ -> },
+
     onSignUpClicked: () -> Unit = {},
     onBackClicked: () -> Unit = {}
 ) {
@@ -42,6 +55,8 @@ fun LoginScreen(
                         fontWeight = FontWeight.Bold,
                         modifier = Modifier.fillMaxWidth(),
                         textAlign = TextAlign.Center
+                        color = AndalibWhite,
+                        fontWeight = FontWeight.Bold
                     )
                 },
                 navigationIcon = {
@@ -63,6 +78,13 @@ fun LoginScreen(
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(containerColor = AndalibWhite)
+                            tint = AndalibWhite
+                        )
+                    }
+                },
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = AndalibDarkBlue
+                )
             )
         },
         containerColor = AndalibWhite
@@ -75,7 +97,7 @@ fun LoginScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Spacer(Modifier.height(32.dp))
-
+            Spacer(Modifier.height(24.dp))
             // --- Judul ---
             Text(
                 text = "Selamat Datang",
@@ -110,6 +132,57 @@ fun LoginScreen(
             Spacer(Modifier.height(48.dp))
 
             // --- Input Email (Komponen) ---
+            Spacer(Modifier.height(4.dp))
+            Text(
+                text = "Masuk ke akun Anda untuk melanjutkan",
+                style = MaterialTheme.typography.bodyMedium,
+                color = AndalibGray,
+                fontSize = 13.sp
+            )
+
+            Spacer(Modifier.height(32.dp))
+
+            // --- Ilustrasi (Sudah benar) ---
+            Box(
+                modifier = Modifier.size(180.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                Box(
+                    modifier = Modifier
+                        .size(120.dp)
+                        .background(AndalibBackground, shape = CircleShape),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .size(70.dp)
+                            .background(AndalibDarkBlue, shape = CircleShape),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Icon(
+                            imageVector = Icons.Filled.Lock,
+                            contentDescription = "Lock Icon",
+                            modifier = Modifier.size(35.dp),
+                            tint = AndalibWhite
+                        )
+                    }
+                }
+                Canvas(modifier = Modifier.fillMaxSize()) {
+                    val colors = listOf(
+                        Color(0xFF6B9BD1), Color(0xFFE57373), Color(0xFF81C784),
+                        Color(0xFFFFB74D), Color(0xFF9575CD)
+                    )
+                    drawCircle(colors[0], 6.dp.toPx(), Offset(size.width * 0.75f, size.height * 0.2f))
+                    drawCircle(colors[1], 8.dp.toPx(), Offset(size.width * 0.85f, size.height * 0.35f))
+                    drawCircle(colors[3], 7.dp.toPx(), Offset(size.width * 0.8f, size.height * 0.7f))
+                    drawCircle(colors[2], 6.dp.toPx(), Offset(size.width * 0.15f, size.height * 0.45f))
+                    drawCircle(colors[4], 5.dp.toPx(), Offset(size.width * 0.25f, size.height * 0.25f))
+                }
+            }
+
+            Spacer(Modifier.height(32.dp))
+
+            // --- Input Email ---
             AndalibTextField(
                 value = email,
                 onValueChange = { email = it },
@@ -117,14 +190,16 @@ fun LoginScreen(
             )
 
             Spacer(Modifier.height(16.dp))
-
             // --- Input Password (Komponen) ---
+            // --- Input Password ---
             AndalibPasswordField(
                 value = password,
                 onValueChange = { password = it },
                 label = "Password",
                 keyboardActions = KeyboardActions(
                     onDone = { onLoginClicked() }
+                    // DIUBAH: Mengirim email dan password
+                    onDone = { onLoginClicked(email, password) }
                 )
             )
 
@@ -134,9 +209,16 @@ fun LoginScreen(
             AndalibButton(
                 text = "Log in",
                 onClick = onLoginClicked
+
+            // --- Tombol Login ---
+            AndalibButton(
+                text = "Log in",
+                // DIUBAH: Mengirim email dan password
+                onClick = { onLoginClicked(email, password) }
             )
 
             Spacer(Modifier.weight(1f))
+
 
             // --- Link Sign Up (Komponen) ---
             ClickableAuthText(
@@ -144,6 +226,12 @@ fun LoginScreen(
                 clickableText = "Sign up",
                 onClick = onSignUpClicked,
                 modifier = Modifier.padding(bottom = 32.dp)
+            // --- Link Sign Up ---
+            ClickableAuthText(
+                prefixText = "Belum punya akun?",
+                clickableText = "Sign Up",
+                onClick = onSignUpClicked,
+                modifier = Modifier.padding(bottom = 24.dp)
             )
         }
     }
