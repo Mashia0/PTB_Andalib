@@ -1,4 +1,4 @@
-package com.example.andalib.ui.screens
+package com.example.andalib.screen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*

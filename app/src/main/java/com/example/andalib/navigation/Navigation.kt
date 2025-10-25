@@ -4,9 +4,9 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.andalib.ui.screens.LoginScreen
-import com.example.andalib.ui.screens.SignUpScreen
-import com.example.andalib.ui.screens.StartScreen
+import com.example.andalib.screen.LoginScreen
+import com.example.andalib.screen.SignUpScreen
+import com.example.andalib.screen.StartScreen
 
 /**
  * Sealed class untuk define semua routes dalam aplikasi

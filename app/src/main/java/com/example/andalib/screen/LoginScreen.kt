@@ -1,4 +1,4 @@
-package com.example.andalib.ui.screens
+package com.example.andalib.screen
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
@@ -28,7 +28,7 @@ import com.example.andalib.ui.theme.*
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LoginScreen(
-    onLoginClicked: () -> Unit = {},
+    onLoginClicked: (String, String) -> Unit = { _, _ -> }, // Terima email & pass
     onSignUpClicked: () -> Unit = {},
     onBackClicked: () -> Unit = {}
 ) {
