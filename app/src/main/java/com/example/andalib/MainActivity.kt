@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.rememberNavController
 import com.example.andalib.navigation.AndalibNavigation
 import com.example.andalib.ui.theme.AndalibTheme
+import com.example.andalib.screen.LoginScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -15,6 +16,21 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             AndalibTheme {
+                // Ganti Scaffold/Greeting dengan LoginScreen
+                LoginScreen(
+                    onLoginClicked = {
+                        // Logika untuk handle klik login
+                    },
+                    onSignUpClicked = {
+                        // Logika untuk pindah ke halaman sign up
+                    },
+                    onBackClicked = {
+                        // Logika untuk tombol kembali
+                    }
+                )
+            }
+        }
+    }
                 AndalibApp()
             }
         }
@@ -25,4 +41,5 @@ class MainActivity : ComponentActivity() {
 fun AndalibApp() {
     val navController = rememberNavController()
     AndalibNavigation(navController = navController)
+main
 }

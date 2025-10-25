@@ -1,17 +1,25 @@
 package com.example.andalib.screen
 
-import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import com.example.andalib.components.AndalibButton
+import com.example.andalib.components.AndalibPasswordField
+import com.example.andalib.components.AndalibTextField
+import com.example.andalib.components.ClickableAuthText
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
@@ -27,8 +35,10 @@ import com.example.andalib.ui.theme.*
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LoginScreen(
+    onLoginClicked: () -> Unit = {},
     // DIUBAH: Menerima (String, String)
     onLoginClicked: (String, String) -> Unit = { _, _ -> },
+
     onSignUpClicked: () -> Unit = {},
     onBackClicked: () -> Unit = {}
 ) {
@@ -41,6 +51,10 @@ fun LoginScreen(
                 title = {
                     Text(
                         "Log in",
+                        color = AndalibDarkBlue,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier.fillMaxWidth(),
+                        textAlign = TextAlign.Center
                         color = AndalibWhite,
                         fontWeight = FontWeight.Bold
                     )
@@ -50,6 +64,20 @@ fun LoginScreen(
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                             contentDescription = "Kembali",
+                            tint = AndalibDarkBlue
+                        )
+                    }
+                },
+                actions = {
+                    IconButton(onClick = { /* TODO */ }) {
+                        Icon(
+                            imageVector = Icons.Default.Info,
+                            contentDescription = "Info",
+                            tint = AndalibDarkBlue.copy(alpha = 0.7f)
+                        )
+                    }
+                },
+                colors = TopAppBarDefaults.topAppBarColors(containerColor = AndalibWhite)
                             tint = AndalibWhite
                         )
                     }
@@ -68,8 +96,8 @@ fun LoginScreen(
                 .padding(horizontal = 24.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            Spacer(Modifier.height(32.dp))
             Spacer(Modifier.height(24.dp))
-
             // --- Judul ---
             Text(
                 text = "Selamat Datang",
@@ -77,6 +105,33 @@ fun LoginScreen(
                 color = AndalibDarkBlue,
                 fontWeight = FontWeight.Bold
             )
+            Spacer(Modifier.height(8.dp))
+            Text(
+                text = "Masuk ke akun Anda untuk melanjutkan",
+                style = MaterialTheme.typography.bodyMedium,
+                color = AndalibGray
+            )
+
+            Spacer(Modifier.height(48.dp))
+
+            // --- Ilustrasi ---
+            Box(
+                modifier = Modifier
+                    .size(120.dp)
+                    .background(AndalibBackground, shape = CircleShape),
+                contentAlignment = Alignment.Center
+            ) {
+                Icon(
+                    imageVector = Icons.Filled.Lock,
+                    contentDescription = "Lock Icon",
+                    modifier = Modifier.size(60.dp),
+                    tint = AndalibDarkBlue
+                )
+            }
+
+            Spacer(Modifier.height(48.dp))
+
+            // --- Input Email (Komponen) ---
             Spacer(Modifier.height(4.dp))
             Text(
                 text = "Masuk ke akun Anda untuk melanjutkan",
@@ -135,19 +190,25 @@ fun LoginScreen(
             )
 
             Spacer(Modifier.height(16.dp))
-
+            // --- Input Password (Komponen) ---
             // --- Input Password ---
             AndalibPasswordField(
                 value = password,
                 onValueChange = { password = it },
                 label = "Password",
                 keyboardActions = KeyboardActions(
+                    onDone = { onLoginClicked() }
                     // DIUBAH: Mengirim email dan password
                     onDone = { onLoginClicked(email, password) }
                 )
             )
 
             Spacer(Modifier.height(32.dp))
+
+            // --- Tombol Login (Komponen) ---
+            AndalibButton(
+                text = "Log in",
+                onClick = onLoginClicked
 
             // --- Tombol Login ---
             AndalibButton(
@@ -158,6 +219,13 @@ fun LoginScreen(
 
             Spacer(Modifier.weight(1f))
 
+
+            // --- Link Sign Up (Komponen) ---
+            ClickableAuthText(
+                prefixText = "Belum punya akun? ",
+                clickableText = "Sign up",
+                onClick = onSignUpClicked,
+                modifier = Modifier.padding(bottom = 32.dp)
             // --- Link Sign Up ---
             ClickableAuthText(
                 prefixText = "Belum punya akun?",

@@ -1,4 +1,4 @@
-package com.example.andalib.ui.components
+package com.example.andalib.components
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -20,9 +20,6 @@ import com.example.andalib.ui.theme.AndalibGray
 import com.example.andalib.ui.theme.AndalibLightBlue
 import com.example.andalib.ui.theme.AndalibWhite
 
-/**
- * Custom OutlinedTextField untuk Andalib
- */
 @Composable
 fun AndalibTextField(
     value: String,
@@ -52,9 +49,6 @@ fun AndalibTextField(
     )
 }
 
-/**
- * Custom OutlinedTextField untuk Password
- */
 @Composable
 fun AndalibPasswordField(
     value: String,
@@ -86,9 +80,6 @@ fun AndalibPasswordField(
     )
 }
 
-/**
- * Custom Button utama untuk Andalib
- */
 @Composable
 fun AndalibButton(
     text: String,
@@ -112,9 +103,6 @@ fun AndalibButton(
     }
 }
 
-/**
- * Teks di bagian bawah layar auth (mis: "Belum punya akun? Sign up")
- */
 @Composable
 fun ClickableAuthText(
     prefixText: String,
