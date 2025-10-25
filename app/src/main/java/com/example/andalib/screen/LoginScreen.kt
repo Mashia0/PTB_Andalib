@@ -1,4 +1,4 @@
-package com.example.andalib.ui.screens
+package com.example.andalib.screen
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
@@ -15,7 +15,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -28,7 +27,8 @@ import com.example.andalib.ui.theme.*
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LoginScreen(
-    onLoginClicked: () -> Unit = {},
+    // DIUBAH: Menerima (String, String)
+    onLoginClicked: (String, String) -> Unit = { _, _ -> },
     onSignUpClicked: () -> Unit = {},
     onBackClicked: () -> Unit = {}
 ) {
@@ -87,19 +87,17 @@ fun LoginScreen(
 
             Spacer(Modifier.height(32.dp))
 
-            // --- Ilustrasi dengan dots ---
+            // --- Ilustrasi (Sudah benar) ---
             Box(
                 modifier = Modifier.size(180.dp),
                 contentAlignment = Alignment.Center
             ) {
-                // Background circle
                 Box(
                     modifier = Modifier
                         .size(120.dp)
                         .background(AndalibBackground, shape = CircleShape),
                     contentAlignment = Alignment.Center
                 ) {
-                    // Lock icon dengan background navy
                     Box(
                         modifier = Modifier
                             .size(70.dp)
@@ -114,51 +112,16 @@ fun LoginScreen(
                         )
                     }
                 }
-
-                // Decorative dots
                 Canvas(modifier = Modifier.fillMaxSize()) {
                     val colors = listOf(
-                        Color(0xFF6B9BD1), // Blue
-                        Color(0xFFE57373), // Red
-                        Color(0xFF81C784), // Green
-                        Color(0xFFFFB74D), // Orange
-                        Color(0xFF9575CD)  // Purple
+                        Color(0xFF6B9BD1), Color(0xFFE57373), Color(0xFF81C784),
+                        Color(0xFFFFB74D), Color(0xFF9575CD)
                     )
-
-                    // Top right (blue)
-                    drawCircle(
-                        color = colors[0],
-                        radius = 6.dp.toPx(),
-                        center = Offset(size.width * 0.75f, size.height * 0.2f)
-                    )
-
-                    // Right (red)
-                    drawCircle(
-                        color = colors[1],
-                        radius = 8.dp.toPx(),
-                        center = Offset(size.width * 0.85f, size.height * 0.35f)
-                    )
-
-                    // Bottom right (orange)
-                    drawCircle(
-                        color = colors[3],
-                        radius = 7.dp.toPx(),
-                        center = Offset(size.width * 0.8f, size.height * 0.7f)
-                    )
-
-                    // Left (green)
-                    drawCircle(
-                        color = colors[2],
-                        radius = 6.dp.toPx(),
-                        center = Offset(size.width * 0.15f, size.height * 0.45f)
-                    )
-
-                    // Top left (purple)
-                    drawCircle(
-                        color = colors[4],
-                        radius = 5.dp.toPx(),
-                        center = Offset(size.width * 0.25f, size.height * 0.25f)
-                    )
+                    drawCircle(colors[0], 6.dp.toPx(), Offset(size.width * 0.75f, size.height * 0.2f))
+                    drawCircle(colors[1], 8.dp.toPx(), Offset(size.width * 0.85f, size.height * 0.35f))
+                    drawCircle(colors[3], 7.dp.toPx(), Offset(size.width * 0.8f, size.height * 0.7f))
+                    drawCircle(colors[2], 6.dp.toPx(), Offset(size.width * 0.15f, size.height * 0.45f))
+                    drawCircle(colors[4], 5.dp.toPx(), Offset(size.width * 0.25f, size.height * 0.25f))
                 }
             }
 
@@ -179,7 +142,8 @@ fun LoginScreen(
                 onValueChange = { password = it },
                 label = "Password",
                 keyboardActions = KeyboardActions(
-                    onDone = { onLoginClicked() }
+                    // DIUBAH: Mengirim email dan password
+                    onDone = { onLoginClicked(email, password) }
                 )
             )
 
@@ -188,7 +152,8 @@ fun LoginScreen(
             // --- Tombol Login ---
             AndalibButton(
                 text = "Log in",
-                onClick = onLoginClicked
+                // DIUBAH: Mengirim email dan password
+                onClick = { onLoginClicked(email, password) }
             )
 
             Spacer(Modifier.weight(1f))

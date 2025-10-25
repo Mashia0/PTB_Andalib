@@ -4,9 +4,10 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.andalib.ui.screens.LoginScreen
-import com.example.andalib.ui.screens.SignUpScreen
-import com.example.andalib.ui.screens.StartScreen
+import com.example.andalib.screen.HomeScreen
+import com.example.andalib.screen.LoginScreen
+import com.example.andalib.screen.SignUpScreen
+import com.example.andalib.screen.StartScreen
 
 /**
  * Sealed class untuk define semua routes dalam aplikasi
@@ -15,9 +16,13 @@ sealed class Screen(val route: String) {
     object Start : Screen("start")
     object Login : Screen("login")
     object SignUp : Screen("signup")
-    object Home : Screen("home")
+    object Home : Screen("home") // Pastikan ini ada
 
 }
+
+// Kredensial Admin
+private const val ADMIN_EMAIL = "admin@andalib.com"
+private const val ADMIN_PASS = "admin123"
 
 /**
  * Navigation graph untuk Andalib app
@@ -33,7 +38,6 @@ fun AndalibNavigation(navController: NavHostController) {
             StartScreen(
                 onNavigateToLogin = {
                     navController.navigate(Screen.Login.route) {
-                        // Clear back stack supaya user tidak bisa kembali ke splash screen
                         popUpTo(Screen.Start.route) { inclusive = true }
                     }
                 }
@@ -43,18 +47,22 @@ fun AndalibNavigation(navController: NavHostController) {
         // Login Screen
         composable(route = Screen.Login.route) {
             LoginScreen(
-                onLoginClicked = {
-                    // TODO: Implement login logic
-                    // Setelah login berhasil, navigate ke home
-                    // navController.navigate(Screen.Home.route) {
-                    //     popUpTo(Screen.Login.route) { inclusive = true }
-                    // }
+                onLoginClicked = { email, password ->
+                    // Logika pengecekan
+                    if (email == ADMIN_EMAIL && password == ADMIN_PASS) {
+                        // Login berhasil
+                        navController.navigate(Screen.Home.route) {
+                            popUpTo(Screen.Login.route) { inclusive = true }
+                        }
+                    } else {
+                        // Login gagal
+                        println("Login Gagal: Email atau Password salah")
+                    }
                 },
                 onSignUpClicked = {
                     navController.navigate(Screen.SignUp.route)
                 },
                 onBackClicked = {
-                    // Back dari login akan keluar dari aplikasi
                     navController.popBackStack()
                 }
             )
@@ -65,13 +73,8 @@ fun AndalibNavigation(navController: NavHostController) {
             SignUpScreen(
                 onSignUpClicked = {
                     // TODO: Implement signup logic
-                    // Setelah signup berhasil, navigate ke home atau kembali ke login
-                    // navController.navigate(Screen.Home.route) {
-                    //     popUpTo(Screen.Login.route) { inclusive = true }
-                    // }
                 },
                 onLoginClicked = {
-                    // Kembali ke login screen
                     navController.popBackStack(Screen.Login.route, inclusive = false)
                 },
                 onBackClicked = {
@@ -80,9 +83,12 @@ fun AndalibNavigation(navController: NavHostController) {
             )
         }
 
-        // Tambahkan composable untuk screen lain di sini
-        // composable(route = Screen.Home.route) { ... }
-        // composable(route = Screen.Profile.route) { ... }
+        // == TAMBAHKAN BLOK INI ==
+        // Rute untuk Home Screen
+        composable(route = Screen.Home.route) {
+            HomeScreen()
+        }
+        // =======================
     }
 }
 
@@ -100,8 +106,7 @@ fun NavHostController.navigateToSignUp() {
 }
 
 fun NavHostController.navigateToHome() {
-    // TODO: Implement when home screen is ready
-    // this.navigate(Screen.Home.route) {
-    //     popUpTo(Screen.Login.route) { inclusive = true }
-    // }
+    this.navigate(Screen.Home.route) {
+        popUpTo(Screen.Login.route) { inclusive = true }
+    }
 }
